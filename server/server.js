@@ -13,11 +13,8 @@ const io = socketIO(server);
 
 io.on('connection',(socket)=>{
     console.log("New user connected");
-    socket.emit("newMessage",{
-        from: 'deb@gmail.com',
-        text: 'Hey, What is going on',
-        createdAt: new Date().toString()
-    })
+    socket.emit("newMessage","Admin: Welcome to the chat App!");
+    socket.broadcast.emit("newMessage", "Admin: new User joined");
     socket.on("createMessage",(message)=>{
         console.log("createMessage",message );
         io.emit("newMessage",{
