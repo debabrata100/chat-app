@@ -7,9 +7,9 @@
     "start": "node server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "engines": "8.1.2",
+  "engines": "8.11.1",
   "keywords": [],
-  "author": "",
+  "author": "deb",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.3"
