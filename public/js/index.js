@@ -6,45 +6,75 @@ socket.on("connect",function(){
 socket.on("disconnect",function (){
     console.log("Disconnected from server");
 })
+var adjuctScrollPosition = function(){
+  var offsetTop = $('.list_message:last-child').offset().top;
+  document.getElementById('message_list').scrollTop = 100*offsetTop;
+}
+var printMessage = function(message, messageType) {
+  var formattedTime = moment(message.createdAt).format('hh:mm a');
+  var messageText = '';
+  if(messageType == 'text'){
+      var template = $("#message-template").html();
+      messageText = Mustache.render(template,{
+        createdAt: message.createdAt,
+        from: message.from,
+        time: formattedTime,
+        text: message.text
+      });
+  }else if(messageType == 'location'){
+      var template = $("#location-message-template").html();
+      messageText = Mustache.render(template,{
+        createdAt: message.createdAt,
+        from: message.from,
+        time: formattedTime,
+        url: message.url
+      });
+  }
+  $('#message_list').append(messageText);
+  adjuctScrollPosition();
+}
 socket.on("newMessage",function(message){
-    // console.log("New Message",message);
-    var li = $('<li> </li>');
-    li.text(`${message.from}: ${message.text}`);
-    $('#message-list').append(li);
+    printMessage(message,'text');
 })
 socket.on("newLocationMessage",function(message){
-    // console.log("New Message",message);
-    var li = $('<li> </li>');
-    var a = $('<a target="_blank">My Current Location</a>');
-    li.text(`${message.from}: `);
-    a.attr('href',message.url);
-    li.append(a);
-    $('#message-list').append(li);
+    printMessage(message,'location');
 })
 
 
 $("#message-form").on("submit",function(e){
       e.preventDefault();
+      var text = $.trim($("#message").val());
+      if(!text) return;
       socket.emit("createMessage",{
           from: 'User',
-          text: $("#message").val()
+          text: text
       },function(data){
-          // console.log("data",data);
+          $("#message").val('');
       })
-      $("#message").val('');
-})
+});
+var handleLocationButton = function(status){
+    if(status == 'sending'){
+        $("#send-location").text('Sending Location...');
+        $("#send-location").attr('disabled', true);
+    }else{
+        $("#send-location").text('Send Location');
+        $("#send-location").removeAttr('disabled');
+    }
+}
 $("#send-location").on("click",function(){
-    console.log("eee");
+    var buttonEl = $(this);
     if(!navigator.geolocation){
         alert('Geolocation is not supported by your browser');
     }
+    handleLocationButton('sending');
     navigator.geolocation.getCurrentPosition(function(position){
-        console.log("position",position);
         socket.emit("createLocationMessage",{
             latitude: position.coords.latitude,
             longitude: position.coords.longitude
+        },function(){
+          handleLocationButton('sent');
         })
-    },function(){
-        alert("unable to fetch loation");
+    },function(error){
+        handleLocationButton('sent');
     })
 })

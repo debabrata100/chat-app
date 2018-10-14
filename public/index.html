@@ -1,23 +1,56 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Chat App</title>
-  </head>
-  <body>
-      <p>Welcome to the chat app</p>
-      <ol id="message-list">
 
-      </ol>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat App</title>
+  <link rel="stylesheet" href="stylesheet/style.css">
+</head>
 
+<body>
+  <div class="chat_container">
+    <div class="chat_sidebar">
+      <h3>Connections</h3>
+      <div id="users"></div>
+    </div>
+    <div class="chat_main">
 
-      <form id="message-form" method="post">
-          <input type="text" id="message" name="message" placeholder="Message"  />
+      <div class="message_list" id="message_list"></div>
+
+      <div class="chat_footer" id="chat_footer">
+
+        <form id="message-form" class="chat-form" method="post">
+          <input type="text" id="message" class="chat-input" name="message" placeholder="Message" autofocus autocomplete="off" />
           <button type="submit" name="button">Send</button>
-      </form>
-      <button type="button" id="send-location">Send Location</button>
-      <script src="/socket.io/socket.io.js"></script>
-      <script src="js/jquery.min.js"></script>
-      <script src="js/index.js"></script>
-  </body>
+          <button type="button" id="send-location">Send Location</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+  <script id="message-template" type="text/template">
+      <div class="list_message" id="{{createdAt}}">
+        <label class="message_label"><strong>{{from}}</strong>
+          <span class="time">{{time}}</span>
+        </label>
+        <span>{{text}}</span>
+      </div>
+  </script>
+  <script id="location-message-template" type="text/template">
+      <div class="list_message" id="{{createdAt}}">
+        <label class="message_label"><strong>{{from}}</strong>
+          <span class="time">{{time}}</span>
+        </label>
+        <a href="{{url}}" target="_blank">My Current Location</a>
+      </div>
+  </script>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/libs/jquery.min.js"></script>
+  <script src="js/libs/moment.js"></script>
+  <script src="js/libs/mustache.js"></script>
+  <script src="js/index.js"></script>
+</body>
+
 </html>
