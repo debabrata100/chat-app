@@ -8,6 +8,8 @@
     --chat-bg: #eee;
     --btn-color: orange;
     --msg-label-color: #000;
+    --join-chat-form-color: #eee;
+    --join-chat-body-color: blue;
 }
 .chat_container{
     display: flex;
@@ -62,7 +64,7 @@
     flex-direction: row;
     width: 100%;
 }
-input{
+.chat-input{
     box-sizing: border-box;
     padding: 10px 120px;
 }
@@ -73,4 +75,41 @@ button{
     text-wrap: wrap;
     background: var(--btn-color);
     margin: 0px 5px;
+    cursor: pointer;
+}
+/*---------Join Chat--------*/
+.join-chat-body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--join-chat-body-color);
+    height: 100vh;
+}
+.join-chat-form{
+    background-color: var(--join-chat-form-color);
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    /*width: 200px;*/
+    border: 1px solid var(--join-chat-form-color);
+    box-sizing: border-box;
+    /*padding: 0px 30px;*/
+}
+.join-chat-form h3{
+    text-align: center;
+    padding: 10px;
+}
+.form-field{
+    display: flex;
+    flex-direction: column;
+    padding: 10px 30px;
+}
+.form-field label{
+    padding: 5px 0px;
+}
+.form-field input{
+    padding: 10px 10px;
+}
+.form-field button{
+    padding: 10px 10px;
 }
