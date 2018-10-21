@@ -56,6 +56,7 @@ var printMessage = function(message, messageType) {
   adjuctScrollPosition();
 }
 socket.on("newMessage",function(message){
+    console.log(message);
     printMessage(message,'text');
 })
 socket.on("newLocationMessage",function(message){
@@ -68,7 +69,6 @@ $("#message-form").on("submit",function(e){
       var text = $.trim($("#message").val());
       if(!text) return;
       socket.emit("createMessage",{
-          from: 'User',
           text: text
       },function(data){
           $("#message").val('');
