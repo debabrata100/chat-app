@@ -10,6 +10,7 @@
     --msg-label-color: #000;
     --join-chat-form-color: #eee;
     --join-chat-body-color: blue;
+    --chat-user-background: #fff;
 }
 .chat_container{
     display: flex;
@@ -55,18 +56,16 @@
     box-sizing: border-box;
 
 }
-.chat-input{
-    padding: 10px 0px;
-    width: 100%;
-}
+
 .chat-form{
     display: flex;
     flex-direction: row;
     width: 100%;
 }
 .chat-input{
+    width: 100%;
     box-sizing: border-box;
-    padding: 10px 120px;
+    padding: 10px 10px;
 }
 button{
     outline: none;
@@ -90,10 +89,8 @@ button{
     display: flex;
     flex-direction: column;
     height: 300px;
-    /*width: 200px;*/
     border: 1px solid var(--join-chat-form-color);
     box-sizing: border-box;
-    /*padding: 0px 30px;*/
 }
 .join-chat-form h3{
     text-align: center;
@@ -112,4 +109,16 @@ button{
 }
 .form-field button{
     padding: 10px 10px;
+}
+/*--------chat sidebar--------*/
+.chat_sidebar h3{
+    text-align: center;
+}
+.chat_sidebar li{
+    display: block;
+    padding: 10px;
+    background: var(--chat-user-background);
+    margin: 5px;
+    border-radius: 8px;
+    cursor: pointer;
 }
